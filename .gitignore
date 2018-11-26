@@ -8,6 +8,9 @@ yarn-error.log*
 # Jetbrains IDE files
 *.idea
 
+# Sandbox folder
+sandbox/
+
 # Runtime data
 pids
 *.pid
