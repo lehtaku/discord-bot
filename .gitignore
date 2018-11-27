@@ -8,8 +8,11 @@ yarn-error.log*
 # Jetbrains IDE files
 *.idea
 
-# Sandbox folder
-sandbox/
+# Tests folder
+tests/
+
+# Configuration files
+config/
 
 # Runtime data
 pids
