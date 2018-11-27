@@ -11,8 +11,8 @@ yarn-error.log*
 # Tests folder
 tests/
 
-# Configuration files
-config/
+# Authentication file
+config/auth.json
 
 # Runtime data
 pids
