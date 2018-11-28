@@ -1,8 +1,11 @@
 # Discord Bot
 
-`https://discordapp.com/developers/applications/515683636629078047/bots`
+### Dependencies
+[Discord.js](https://www.npmjs.com/package/discord.js)
+[Request](https://www.npmjs.com/package/request)
+[Node-Opus](https://www.npmjs.com/package/node-opus)
 
-# Things ToDo
+### Things ToDo
 * Search
     * Search videos from YouTube :heavy_check_mark:
 * Music
