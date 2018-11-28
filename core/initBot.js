@@ -1,10 +1,12 @@
-const { Client } = require('discord.js');
+const { Client, MessageCollector } = require('discord.js');
 const auth = require('../config/auth');
 const config = require('../config/config');
 const search = require('./videoSearch');
 
 var initializeBot = () => {
+    // Create and login client
     const client = new Client();
+    client.login(auth.token);
 
     client.on('ready', () => {
         console.log('Connected');
@@ -17,7 +19,7 @@ var initializeBot = () => {
     client.on('debug', (error) => console.log(error));
 
     client.on('message', message => {
-        if (!message.content.startsWith(config.prefix) || message.author.bot) return;
+        if (!message.content.startsWith(config.prefix) || message.author.bot || (!message.guild)) return;
 
         const args = message.content
             .slice(config.prefix.length) // Remove prefix from message
@@ -43,7 +45,7 @@ var initializeBot = () => {
                         fields.push(field);
                     });
 
-                    // Create and send embed
+                    // Create and send results embed
                     message.channel.send({embed: {
                         color: 6750054,
                         author: {
@@ -53,12 +55,21 @@ var initializeBot = () => {
                         description: `Results for keyword(s): ${args}`,
                         fields: fields
                     }});
+
+                    // Wait for user to select which song to play
+                    const collector = new MessageCollector(message.channel, msg => msg.author.id === message.author.id, { time: 10000 });
+                    collector.on('collect', message => {
+                        var i = message.content;
+                        if (i < 1 || i > 10) {
+                            message.channel.send('Please give valid number! :slight_smile:')
+                        } else {
+                            message.channel.send(results[i - 1].title);
+                        }
+                    })
                 }
             });
         }
     });
-
-    client.login(auth.token);
 };
 
 module.exports.initializeBot = initializeBot;
