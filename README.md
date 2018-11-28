@@ -1,9 +1,9 @@
 # Discord Bot
 
 ### Dependencies
-[Discord.js](https://www.npmjs.com/package/discord.js)
-[Request](https://www.npmjs.com/package/request)
-[Node-Opus](https://www.npmjs.com/package/node-opus)
+[Discord.js](https://www.npmjs.com/package/discord.js)  
+[Request](https://www.npmjs.com/package/request)  
+[Node-Opus](https://www.npmjs.com/package/node-opus)  
 
 ### Things ToDo
 * Search
