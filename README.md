@@ -1,5 +1,4 @@
 # HuilistiBot
-<img src="https://media.discordapp.net/attachments/514253512490614785/517123107799171074/huilistibot-logo.jpg" width="500px" >
 
 `https://discordapp.com/developers/applications/515683636629078047/bots`
 
@@ -12,4 +11,5 @@
     * Skip
     * Repeat
 * Memes
-    * Funny images
+    * Images
+    * etc..
