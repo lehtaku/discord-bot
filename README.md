@@ -4,7 +4,7 @@
 
 # Things ToDo
 * Search
-    * Search 10 videos from YouTube
+    * Search videos from YouTube
 * Music
     * Play
     * Pause
@@ -13,3 +13,5 @@
 * Memes
     * Images
     * etc..
+* Messages
+    * Incoming..
