@@ -6,7 +6,7 @@
 * Search
     * Search videos from YouTube :heavy_check_mark:
 * Music
-    * Play :heavy_multiplication_x:
+    * Play :heavy_check_mark:
     * Pause :heavy_multiplication_x:
     * Skip :heavy_multiplication_x:
     * Repeat :heavy_multiplication_x:
