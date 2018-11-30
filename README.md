@@ -3,7 +3,7 @@
 ### Dependencies
 [Discord.js](https://www.npmjs.com/package/discord.js)  
 [Request](https://www.npmjs.com/package/request)  
-[Node-Opus](https://www.npmjs.com/package/node-opus)  
+[YTDL](https://github.com/fent/node-ytdl-core)  
 
 ### Things ToDo
 * Search
