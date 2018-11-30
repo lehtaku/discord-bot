@@ -1,3 +1,3 @@
-const bot = require('./core/initBot');
+const bot = require('./src/initBot');
 
 bot.initializeBot();
