@@ -1,9 +1,9 @@
 # Discord Bot
 
 ### Dependencies
-[Discord.js](https://www.npmjs.com/package/discord.js)  
-[Request](https://www.npmjs.com/package/request)  
-[YTDL](https://github.com/fent/node-ytdl-core)  
+[Discord.js](https://www.npmjs.com/package/discord.js) (Node.js module to interact with the Discord API)  
+[Request](https://www.npmjs.com/package/request) (Request is simple way to make http/https calls)   
+[YTDL](https://github.com/fent/node-ytdl-core) (Youtube downloading module)  
 
 ### Things ToDo
 * Search
