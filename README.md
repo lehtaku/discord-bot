@@ -1,15 +1,20 @@
-# HuilistiBot
-<img src="https://media.discordapp.net/attachments/514253512490614785/517123107799171074/huilistibot-logo.jpg" width="500px" >
+# Discord Bot
 
-`https://discordapp.com/developers/applications/515683636629078047/bots`
+### Dependencies
+[Discord.js](https://www.npmjs.com/package/discord.js)  
+[Request](https://www.npmjs.com/package/request)  
+[Node-Opus](https://www.npmjs.com/package/node-opus)  
 
-# Things ToDo
+### Things ToDo
 * Search
-    * Search 10 videos from YouTube
+    * Search videos from YouTube :heavy_check_mark:
 * Music
-    * Play
-    * Pause
-    * Skip
-    * Repeat
+    * Play :heavy_check_mark:
+    * Pause :heavy_multiplication_x:
+    * Skip :heavy_multiplication_x:
+    * Repeat :heavy_multiplication_x:
 * Memes
-    * Funny images
+    * Images :heavy_multiplication_x:
+    * Videos :heavy_multiplication_x:
+* Messages
+    * Replies :heavy_multiplication_x:
