@@ -20,7 +20,7 @@ var selectSong = (client, message, args) => {
             collector.on('collect', message => {
                 var songNumber = (message.content - 1);
                 if (!checkInput(songNumber)) {
-                    message.reply('Invalid input number!');
+                    message.reply(reply.invalidInput);
                 } else {
                     playQueue.push({
                         videoURL: results[songNumber].videoURL,
@@ -29,7 +29,7 @@ var selectSong = (client, message, args) => {
                     if (playQueue.length === 1) {
                         playSong(message);
                     } else {
-                        message.reply(results[songNumber].title + ' has been added to queue!');
+                        message.reply(results[songNumber].title + reply.addedToQueue);
                         console.log(playQueue);
                     }
                 }
@@ -45,7 +45,7 @@ var playSong = (message) => {
                 quality: 'highestaudio',
                 filter: 'audioonly',
             });
-            message.channel.send('Now playing: ' + playQueue[0].title);
+            message.channel.send(reply.nowPlaying + playQueue[0].title);
             dispatcher = connection.playStream(stream);
 
             dispatcher.on('end', () => {
@@ -53,7 +53,7 @@ var playSong = (message) => {
                     playQueue.shift();
                     playSong(message);
                 } else {
-                    message.reply('Queue is empty!');
+                    message.reply(reply.emptyQueue);
                 }
             });
         });
@@ -103,7 +103,7 @@ var createResultsEmbed = (client, message, results, args) => {
                 name: client.user.username,
                 icon_url: client.user.avatarURL
             },
-            description: `Results for keyword(s): ${args}`,
+            description: reply.resultsForKeywords + args,
             fields: fields
         }});
 };

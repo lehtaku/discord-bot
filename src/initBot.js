@@ -1,5 +1,4 @@
 const { Client } = require('discord.js');
-const auth = require('../config/auth');
 const config = require('../config/config');
 const validations = require('./validations');
 const commands = require('./commands');
@@ -7,12 +6,12 @@ const commands = require('./commands');
 var initializeBot = () => {
     // Create and login client
     const client = new Client();
-    client.login(auth.token);
+    client.login(process.env.APP_TOKEN);
 
     client.on('ready', () => {
         console.log('Connected');
         console.log(`Logged in as ${client.user.tag}`);
-        client.user.setActivity('Online');
+        client.user.setActivity('Ready to Rumble');
     });
 
     client.on('error', (error) => console.log(error));
@@ -38,6 +37,9 @@ var initializeBot = () => {
             case 'repeat':
                 commands.repeatSong(message);
                 break;
+/*            case 'skip':
+                commands.skipSong(message);
+                break;*/
             case 'leave':
                 commands.leaveChannel(message);
                 break;

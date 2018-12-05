@@ -1,10 +1,9 @@
 const request = require('request');
-const auth = require('../config/auth');
 const config = require('../config/config');
 
 var getYtVideos = (keyWord, callback) => {
     request({
-        url: `${config.googleBaseURL}part=${config.part}&maxResults=${config.maxResults}&q=${keyWord}&type=${config.type}&key=${auth.googleApiKey}`,
+        url: `${config.googleBaseURL}part=${config.part}&maxResults=${config.maxResults}&q=${keyWord}&type=${config.type}&key=${process.env.API_KEY}`,
         json: true
     }, (error, response, body) => {
         if (error) {

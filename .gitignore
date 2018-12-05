@@ -5,14 +5,14 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Environment variables
+.env
+
 # Jetbrains IDE files
 *.idea
 
 # Tests folder
 tests/
-
-# Authentication file
-config/auth.json
 
 # Runtime data
 pids
