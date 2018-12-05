@@ -25,10 +25,23 @@ var initializeBot = () => {
         const args = validations.validateArgs(message);
         const command = validations.validateCommand(args);
 
-        if (command === 'play') {
-            commands.selectSong(client, message, args);
+        switch (command) {
+            case 'play':
+                commands.selectSong(client, message, args);
+                break;
+            case 'pause':
+                commands.pauseSong(message);
+                break;
+            case 'resume':
+                commands.resumeSong(message);
+                break;
+            case 'repeat':
+                commands.repeatSong(message);
+                break;
+            case 'leave':
+                commands.leaveChannel(message);
+                break;
         }
-
     });
 };
 
