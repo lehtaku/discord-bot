@@ -3,7 +3,9 @@
 ### Dependencies
 [Discord.js](https://www.npmjs.com/package/discord.js) (Node.js module to interact with the Discord API)  
 [Request](https://www.npmjs.com/package/request) (Request is simple way to make http/https calls)   
-[YTDL](https://github.com/fent/node-ytdl-core) (Youtube downloading module)  
+[ytdl](https://github.com/fent/node-ytdl-core) (Youtube downloading module)  
+[dotenv](https://www.npmjs.com/package/dotenv) (Module to manage environment variables usage)
+[https://www.npmjs.com/package/forever](https://www.npmjs.com/package/forever) (Process management)
 
 ### Features
 * Search
