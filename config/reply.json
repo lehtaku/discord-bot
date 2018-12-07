@@ -1,9 +1,12 @@
 {
-  "emptyQueue": "Queue is empty!",
   "addedToQueue": " has been added to queue!",
+  "emptyQueue": "Play queue is empty! Add something to queue!",
+  "finishedPlaying": "Finished playing!",
+  "joinFirst": "You should join to voice channel first to play music! :thinking:",
   "invalidInput": "Invalid input number!",
   "listenOnlyChannel": "I only listen people who are in voice channel with me!",
   "leavingChannel": "Leaving channel, bye!",
   "nowPlaying": "Now playing: ",
-  "resultsForKeywords": "Results for keyword(s): "
+  "resultsForKeywords": "Results for keyword(s): ",
+  "unknownCmd": "Unknown command, if you want to see available commands type: ?help"
 }

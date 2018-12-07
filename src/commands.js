@@ -9,14 +9,17 @@ var dispatcher;
 var playQueue = [];
 
 var selectSong = (client, message, args) => {
-    if (userInChannel(message)) {
+    if (!userInChannel(message)) {
+        message.reply(reply.joinFirst);
+    }
+    else {
         search.getYtVideos(args, (error, results) => {
             if (error) {
                 console.log(error);
             } else {
                 createResultsEmbed(client, message, results, args);
 
-                const collector = new MessageCollector(message.channel, msg => msg.author.id === message.author.id, { time: 5000 });
+                const collector = new MessageCollector(message.channel, msg => msg.author.id === message.author.id, {time: 5000});
 
                 collector.on('collect', message => {
                     var songNumber = (message.content - 1);
@@ -24,13 +27,12 @@ var selectSong = (client, message, args) => {
                         message.reply(reply.invalidInput);
                     } else {
                         playQueue.push({
-                            videoURL: results[songNumber].videoURL,
-                            title: results[songNumber].title
+                            title: results[songNumber].title,
+                            videoURL: results[songNumber].videoURL
                         });
 
                         if (playQueue.length > 1) {
                             message.reply(results[songNumber].title + reply.addedToQueue);
-                            console.log(playQueue);
                         } else {
                             playSong(message);
                         }
@@ -39,34 +41,30 @@ var selectSong = (client, message, args) => {
             }
         });
     }
-    else {
-        message.reply('You should join to voice channel first to play music! :thinking:')
-    }
 };
 
 var playSong = (message) => {
-    message.member.voiceChannel.join()
-        .then(connection => {
-            var stream = ytdl(playQueue[0].videoURL, {
-                quality: 'highestaudio',
-                filter: 'audioonly',
-            });
-            message.channel.send(reply.nowPlaying + playQueue[0].title);
-            dispatcher = connection.playStream(stream);
+    if (playQueue.length === 0) {
+        message.channel.send(reply.finishedPlaying);
+    } else {
+        message.member.voiceChannel.join()
+            .then(connection => {
+                var stream = ytdl(playQueue[0].videoURL, {
+                    quality: 'highestaudio',
+                    filter: 'audioonly',
+                });
+                message.channel.send(playQueue[0].title);
+                dispatcher = connection.playStream(stream);
 
-            dispatcher.on('end', () => {
-                playQueue.shift();
-                if (playQueue.length === 0) {
-                    message.channel.send('Finished playing!')
-                        .then(dispatcher.destroy());
-                } else {
+                dispatcher.on('end', () => {
+                    playQueue.shift();
                     playSong(message);
-                }
+                });
+            })
+            .catch((error) => {
+                console.log(error);
             });
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+    }
 };
 
 var pauseSong = (message) => {
@@ -87,7 +85,7 @@ var resumeSong = (message) => {
 
 var skipSong = (message) => {
     if (playQueue.length < 1) {
-        message.reply('Play queue is empty! Add something to queue!')
+        message.reply(reply.emptyQueue)
             .then(dispatcher.destroy());
     } else {
         playSong(message);
@@ -99,12 +97,12 @@ var repeatSong = (message) => {
 };
 
 var unknownCommand = (message) => {
-    message.channel.send('Unknown command, if you want to see available commands, type: ?help');
+    message.channel.send(reply.unknownCmd);
 };
 
 var leaveChannel = (message) => {
     if (userInChannel(message)) {
-        message.reply(reply.leavingChannel);
+        message.channel.send(reply.leavingChannel);
         message.member.voiceChannel.leave();
     } else {
         message.reply(reply.listenOnlyChannel);
