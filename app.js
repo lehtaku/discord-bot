@@ -1,4 +1,4 @@
-// Configurations to .ENV
+// Configurations to .ENVKek
 require('dotenv').config();
 
 const bot = require('./src/initBot');

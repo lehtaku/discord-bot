@@ -9,58 +9,67 @@ var dispatcher;
 var playQueue = [];
 
 var selectSong = (client, message, args) => {
-    search.getYtVideos(args, (error, results) => {
-        if (error) {
-            console.log(error);
-        } else {
-            createResultsEmbed(client, message, results, args);
-            var collector = null;
-            collector = new MessageCollector(message.channel, msg => msg.author.id === message.author.id, { time: 5000 });
+    if (userInChannel(message)) {
+        search.getYtVideos(args, (error, results) => {
+            if (error) {
+                console.log(error);
+            } else {
+                createResultsEmbed(client, message, results, args);
 
-            collector.on('collect', message => {
-                var songNumber = (message.content - 1);
-                if (!checkInput(songNumber)) {
-                    message.reply(reply.invalidInput);
-                } else {
-                    playQueue.push({
-                        videoURL: results[songNumber].videoURL,
-                        title: results[songNumber].title
-                    });
-                    if (playQueue.length === 1) {
-                        playSong(message);
+                const collector = new MessageCollector(message.channel, msg => msg.author.id === message.author.id, { time: 5000 });
+
+                collector.on('collect', message => {
+                    var songNumber = (message.content - 1);
+                    if (!checkInput(songNumber)) {
+                        message.reply(reply.invalidInput);
                     } else {
-                        message.reply(results[songNumber].title + reply.addedToQueue);
-                        console.log(playQueue);
+                        playQueue.push({
+                            videoURL: results[songNumber].videoURL,
+                            title: results[songNumber].title
+                        });
+
+                        if (playQueue.length > 1) {
+                            message.reply(results[songNumber].title + reply.addedToQueue);
+                            console.log(playQueue);
+                        } else {
+                            playSong(message);
+                        }
                     }
-                }
-            });
-        }
-    });
+                });
+            }
+        });
+    }
+    else {
+        message.reply('You should join to voice channel first to play music! :thinking:')
+    }
 };
 
 var playSong = (message) => {
-    message.member.voiceChannel.join()
-        .then(connection => {
-            var stream = ytdl(playQueue[0].videoURL, {
-                quality: 'highestaudio',
-                filter: 'audioonly',
-            });
-            message.channel.send(reply.nowPlaying + playQueue[0].title);
-            dispatcher = connection.playStream(stream);
+        message.member.voiceChannel.join()
+            .then(connection => {
+                var stream = ytdl(playQueue[0].videoURL, {
+                    quality: 'highestaudio',
+                    filter: 'audioonly',
+                });
+                message.channel.send(reply.nowPlaying + playQueue[0].title);
+                dispatcher = connection.playStream(stream);
 
-            dispatcher.on('end', () => {
-                if (playQueue.length !== 0) {
-                    playQueue.shift();
-                    playSong(message);
-                } else {
-                    message.reply(reply.emptyQueue);
-                }
+                dispatcher.on('end', () => {
+                    if (playQueue.length === 0) {
+                        message.channel.send('Finished playing!');
+                    } else {
+                        playQueue.shift();
+                        playSong(message);
+                    }
+                });
+            })
+            .catch((error) => {
+                console.log(error);
             });
-        });
-    };
+};
 
 var pauseSong = (message) => {
-    if (userInChannel(message) === true) {
+    if (userInChannel(message)) {
         dispatcher.pause();
     } else {
         message.reply(reply.listenOnlyChannel);
@@ -68,17 +77,33 @@ var pauseSong = (message) => {
 };
 
 var resumeSong = (message) => {
-    if (userInChannel(message) === true) {
+    if (userInChannel(message)) {
         dispatcher.resume();
     } else {
         message.reply(reply.listenOnlyChannel);
     }
 };
 
+var skipSong = (message) => {
+    if (playQueue.length === 0) {
+        message.reply('Play queue is empty! Play something!')
+            .then(dispatcher.destroy());
+    } else {
+        playSong(message);
+    }
+};
+
+var repeatSong = (message) => {
+
+};
+
+var unknownCommand = (message) => {
+    message.channel.send('Unknown command, if you want to see available commands, type: ?help');
+};
+
 var leaveChannel = (message) => {
-    if (userInChannel(message) === true) {
+    if (userInChannel(message)) {
         message.reply(reply.leavingChannel);
-        message.member.voiceChannel.leave();
         message.member.voiceChannel.leave();
     } else {
         message.reply(reply.listenOnlyChannel);
@@ -119,8 +144,16 @@ var userInChannel = (message) => {
     return (!!message.member.voiceChannel);
 };
 
+var destroyClient = (client) => {
+    client.destroy();
+};
+
 
 module.exports.selectSong = selectSong;
 module.exports.pauseSong = pauseSong;
 module.exports.resumeSong = resumeSong;
+module.exports.skipSong = skipSong;
+module.exports.repeatSong = repeatSong;
+module.exports.unknownCommand = unknownCommand;
 module.exports.leaveChannel = leaveChannel;
+module.exports.destroyClient = destroyClient;

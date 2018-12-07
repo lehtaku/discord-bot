@@ -37,15 +37,29 @@ var initializeBot = () => {
             case 'repeat':
                 commands.repeatSong(message);
                 break;
-/*            case 'skip':
+            case 'skip':
                 commands.skipSong(message);
-                break;*/
+                break;
             case 'leave':
                 commands.leaveChannel(message);
                 break;
+            case 'destroy':
+                terminateBot(client, message);
+                break;
+            default:
+                commands.unknownCommand(message);
         }
     });
 };
 
+var terminateBot = (client, message) => {
+    message.channel.send('Shutting down the process')
+        .then(process.kill(process.pid))
+        .catch((error) => {
+            console.log(error);
+        });
+};
+
 module.exports.initializeBot = initializeBot;
+
 
