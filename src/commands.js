@@ -102,6 +102,8 @@ var unknownCommand = (message) => {
 
 var leaveChannel = (message) => {
     if (userInChannel(message)) {
+        playQueue = [];
+        dispatcher.destroy();
         message.channel.send(reply.leavingChannel);
         message.member.voiceChannel.leave();
     } else {
