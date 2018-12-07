@@ -85,8 +85,7 @@ var resumeSong = (message) => {
 
 var skipSong = (message) => {
     if (playQueue.length < 1) {
-        message.reply(reply.emptyQueue)
-            .then(dispatcher.destroy());
+        message.reply(reply.emptyQueue);
     } else {
         playSong(message);
     }
