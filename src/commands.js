@@ -45,27 +45,28 @@ var selectSong = (client, message, args) => {
 };
 
 var playSong = (message) => {
-        message.member.voiceChannel.join()
-            .then(connection => {
-                var stream = ytdl(playQueue[0].videoURL, {
-                    quality: 'highestaudio',
-                    filter: 'audioonly',
-                });
-                message.channel.send(reply.nowPlaying + playQueue[0].title);
-                dispatcher = connection.playStream(stream);
-
-                dispatcher.on('end', () => {
-                    if (playQueue.length === 0) {
-                        message.channel.send('Finished playing!');
-                    } else {
-                        playQueue.shift();
-                        playSong(message);
-                    }
-                });
-            })
-            .catch((error) => {
-                console.log(error);
+    message.member.voiceChannel.join()
+        .then(connection => {
+            var stream = ytdl(playQueue[0].videoURL, {
+                quality: 'highestaudio',
+                filter: 'audioonly',
             });
+            message.channel.send(reply.nowPlaying + playQueue[0].title);
+            dispatcher = connection.playStream(stream);
+
+            dispatcher.on('end', () => {
+                playQueue.shift();
+                if (playQueue.length === 0) {
+                    message.channel.send('Finished playing!')
+                        .then(dispatcher.destroy());
+                } else {
+                    playSong(message);
+                }
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 };
 
 var pauseSong = (message) => {
@@ -85,8 +86,8 @@ var resumeSong = (message) => {
 };
 
 var skipSong = (message) => {
-    if (playQueue.length === 0) {
-        message.reply('Play queue is empty! Play something!')
+    if (playQueue.length <= 1) {
+        message.reply('Play queue is empty! Add something to queue!')
             .then(dispatcher.destroy());
     } else {
         playSong(message);
