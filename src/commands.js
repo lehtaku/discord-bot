@@ -86,7 +86,7 @@ var resumeSong = (message) => {
 };
 
 var skipSong = (message) => {
-    if (playQueue.length === 0) {
+    if (playQueue.length < 1) {
         message.reply('Play queue is empty! Add something to queue!')
             .then(dispatcher.destroy());
     } else {
