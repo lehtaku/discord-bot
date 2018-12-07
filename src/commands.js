@@ -53,7 +53,7 @@ var playSong = (message) => {
                     quality: 'highestaudio',
                     filter: 'audioonly',
                 });
-                message.channel.send(playQueue[0].title);
+                message.channel.send(reply.nowPlaying + playQueue[0].title);
                 dispatcher = connection.playStream(stream);
 
                 dispatcher.on('end', () => {
@@ -87,7 +87,7 @@ var skipSong = (message) => {
     if (playQueue.length < 1) {
         message.reply(reply.emptyQueue);
     } else {
-        playSong(message);
+        dispatcher.end();
     }
 };
 
