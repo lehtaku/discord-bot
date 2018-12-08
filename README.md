@@ -10,9 +10,9 @@
 * [Winston](https://www.npmjs.com/package/winston) - Very handy tool for logging  
 
 ### Features
-* Search
-    * Search videos from YouTube :heavy_check_mark:
+
 * Music
+    * Search :heavy_check_mark:
     * Play :heavy_check_mark:
     * Pause :heavy_check_mark:
     * Resume :heavy_check_mark:
@@ -29,4 +29,4 @@
 * General stability :heavy_multiplication_x:
 
 ### Server
-* Currently working on DigitalOcean Ubuntu 18.04 Droplet
+* Currently running on [DigitalOcean](https://www.digitalocean.com/) Ubuntu 18.04 virtual machine
