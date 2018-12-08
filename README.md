@@ -29,6 +29,8 @@ Built on official [Discord API](https://discordapp.com/developers) using Node.js
     * :heavy_multiplication_x: Sounds
 * Messages
     * :heavy_multiplication_x: Funny replies (or something else cool)
+* Utilies
+    * :heavy_multiplication_x: Help and commands panel
 
 ### Needs to be improved
 * :heavy_multiplication_x: Error handling
