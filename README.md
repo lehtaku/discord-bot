@@ -12,22 +12,22 @@
 ### Features
 
 * Music
-    * Search :heavy_check_mark:
-    * Play :heavy_check_mark:
-    * Pause :heavy_check_mark:
-    * Resume :heavy_check_mark:
-    * Queue :heavy_check_mark:
-    * Skip :heavy_check_mark:
-    * Repeat :heavy_multiplication_x:
+    * :heavy_check_mark: Search
+    * :heavy_check_mark: Play
+    * :heavy_check_mark: Pause
+    * :heavy_check_mark: Resume 
+    * :heavy_check_mark: Queue
+    * :heavy_check_mark: Skip 
+    * :heavy_multiplication_x: Repeat 
 * Memes
-    * Images :heavy_multiplication_x:
-    * Videos :heavy_multiplication_x:
+    * :heavy_multiplication_x: Images 
+    * :heavy_multiplication_x: Videos
 * Messages
-    * Replies :heavy_multiplication_x:
+    * :heavy_multiplication_x: Replies (or something)
 
 ### Need to be improved
-* Error handling :heavy_multiplication_x:
-* General stability :heavy_multiplication_x:
+* :heavy_multiplication_x: Error handling
+* :heavy_multiplication_x: General stability 
 
 ### Server
 * Currently running on [DigitalOcean](https://www.digitalocean.com/) Ubuntu 18.04 virtual machine
