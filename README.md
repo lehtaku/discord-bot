@@ -1,5 +1,9 @@
 # Discord Bot
 
+### About
+
+Built on official [Discord API](https://discordapp.com/developers) using Node.js v.10 and NPM package manager. Still under development.
+
 ### Dependencies
 
 * [Discord.js](https://www.npmjs.com/package/discord.js) - Node.js module to interact with the Discord API    
