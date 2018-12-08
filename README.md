@@ -16,6 +16,7 @@
     * Play :heavy_check_mark:
     * Pause :heavy_check_mark:
     * Resume :heavy_check_mark:
+    * Queue :heavy_check_mark:
     * Skip :heavy_check_mark:
     * Repeat :heavy_multiplication_x:
 * Memes
