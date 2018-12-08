@@ -34,6 +34,6 @@
 * Currently running on [DigitalOcean](https://www.digitalocean.com/) Ubuntu 18.04 virtual machine
 
 ### Images
-<img src="https://media.discordapp.net/attachments/514253512490614785/520755753200386058/Screenshot_2018-12-08_at_2.17.15.png?width=975&height=630" width="800px">
+<img src="https://media.discordapp.net/attachments/514253512490614785/520755753200386058/Screenshot_2018-12-08_at_2.17.15.png?width=975&height=630" width="100%">
 
-<img src="https://media.discordapp.net/attachments/514253512490614785/520756387442065419/Screenshot_2018-12-08_at_2.19.36.png?width=960&height=666" width="800px">
+<img src="https://media.discordapp.net/attachments/514253512490614785/520756387442065419/Screenshot_2018-12-08_at_2.19.36.png?width=960&height=666" width="100%">
