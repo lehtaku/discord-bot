@@ -34,7 +34,8 @@ Built on official [Discord API](https://discordapp.com/developers) using Node.js
     * :heavy_multiplication_x: Funny replies (or something else cool)
 * Utilies
     * :heavy_multiplication_x: Help and commands panel
-
+* Other
+    * :heavy_multiplication_x: Disconnect from channel if being too long alone
 ### Needs to be improved
 * Error handling
 * General stability 
