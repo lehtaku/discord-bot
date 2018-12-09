@@ -24,7 +24,8 @@ Built on official [Discord API](https://discordapp.com/developers) using Node.js
     * :heavy_check_mark: Resume 
     * :heavy_check_mark: Queue
     * :heavy_check_mark: Skip 
-    * :heavy_check_mark: Repeat 
+    * :heavy_check_mark: Repeat
+    * :heavy_multiplication_x: Stop
 * Memes
     * :heavy_multiplication_x: Images 
     * :heavy_multiplication_x: Videos
