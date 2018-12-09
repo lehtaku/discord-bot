@@ -22,7 +22,7 @@ Built on official [Discord API](https://discordapp.com/developers) using Node.js
     * :heavy_check_mark: Resume 
     * :heavy_check_mark: Queue
     * :heavy_check_mark: Skip 
-    * :heavy_multiplication_x: Repeat 
+    * :heavy_check_mark: Repeat 
 * Memes
     * :heavy_multiplication_x: Images 
     * :heavy_multiplication_x: Videos
@@ -33,8 +33,8 @@ Built on official [Discord API](https://discordapp.com/developers) using Node.js
     * :heavy_multiplication_x: Help and commands panel
 
 ### Needs to be improved
-* :heavy_multiplication_x: Error handling
-* :heavy_multiplication_x: General stability 
+* Error handling
+* General stability 
 
 ### Server
 * Currently running on [DigitalOcean](https://www.digitalocean.com/) Ubuntu 18.04 virtual machine
