@@ -1,4 +1,6 @@
-# Discord Bot
+<p align="center">
+<img src="https://sg.fiverrcdn.com/photos/104246081/original/9729594118c49d3ab35174978cda69de3072f3bb.png?1510598701" width="80%" align="center">
+</p>
 
 ### About
 
