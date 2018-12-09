@@ -8,5 +8,7 @@
   "leavingChannel": "Leaving channel, bye! :hand_splayed:",
   "nowPlaying": "Now playing: ",
   "resultsForKeywords": "Results for keyword(s): ",
+  "songRepeating": "Song is now repeating! :repeat:",
+  "songNoRepeating": "Song is no more repeating!",
   "unknownCmd": "Unknown command, if you want to see available commands type: ?help :grimacing:"
 }

@@ -43,23 +43,11 @@ var initializeBot = () => {
             case 'leave':
                 commands.leaveChannel(message);
                 break;
-            case 'destroy':
-                terminateBot(client, message);
-                break;
             default:
                 commands.unknownCommand(message);
         }
     });
 };
 
-var terminateBot = (client, message) => {
-    message.channel.send('Shutting down the process')
-        .then(process.kill(process.pid))
-        .catch((error) => {
-            console.log(error);
-        });
-};
-
 module.exports.initializeBot = initializeBot;
-
 

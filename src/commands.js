@@ -5,10 +5,12 @@ const reply = require('../config/reply');
 const fs = require('fs');
 const ytdl = require('ytdl-core');
 
-var dispatcher;
-var playQueue = [];
+let dispatcher;
+let playQueue = [];
+let repeating = false;
 
-var selectSong = (client, message, args) => {
+
+let selectSong = (client, message, args) => {
     if (!userInChannel(message)) {
         message.reply(reply.joinFirst);
     }
@@ -18,19 +20,18 @@ var selectSong = (client, message, args) => {
                 console.log(error);
             } else {
                 createResultsEmbed(client, message, results, args);
-
-                const collector = new MessageCollector(message.channel, msg => msg.author.id === message.author.id, {time: 5000});
+                const collector = new MessageCollector(message.channel, msg => msg.author.id === message.author.id, {time: 6000});
 
                 collector.on('collect', message => {
-                    var songNumber = (message.content - 1);
+                    let songNumber = (message.content - 1);
                     if (!checkInput(songNumber)) {
                         message.reply(reply.invalidInput);
                     } else {
+                        collector.stop();
                         playQueue.push({
                             title: results[songNumber].title,
                             videoURL: results[songNumber].videoURL
                         });
-
                         if (playQueue.length > 1) {
                             message.reply(results[songNumber].title + reply.addedToQueue);
                         } else {
@@ -43,21 +44,25 @@ var selectSong = (client, message, args) => {
     }
 };
 
-var playSong = (message) => {
+let playSong = (message) => {
     if (playQueue.length === 0) {
         message.channel.send(reply.finishedPlaying);
     } else {
         message.member.voiceChannel.join()
             .then(connection => {
-                var stream = ytdl(playQueue[0].videoURL, {
+                let stream = ytdl(playQueue[0].videoURL, {
                     quality: 'highestaudio',
                     filter: 'audioonly',
                 });
-                message.channel.send(reply.nowPlaying + playQueue[0].title);
+                if (!repeating) {
+                    message.channel.send(reply.nowPlaying + playQueue[0].title);
+                }
                 dispatcher = connection.playStream(stream);
 
                 dispatcher.on('end', () => {
-                    playQueue.shift();
+                    if (!repeating) {
+                        playQueue.shift();
+                    }
                     playSong(message);
                 });
             })
@@ -67,7 +72,7 @@ var playSong = (message) => {
     }
 };
 
-var pauseSong = (message) => {
+let pauseSong = (message) => {
     if (userInChannel(message)) {
         dispatcher.pause();
     } else {
@@ -75,7 +80,7 @@ var pauseSong = (message) => {
     }
 };
 
-var resumeSong = (message) => {
+let resumeSong = (message) => {
     if (userInChannel(message)) {
         dispatcher.resume();
     } else {
@@ -83,7 +88,7 @@ var resumeSong = (message) => {
     }
 };
 
-var skipSong = (message) => {
+let skipSong = (message) => {
     if (playQueue.length < 1) {
         message.reply(reply.emptyQueue);
     } else {
@@ -91,15 +96,20 @@ var skipSong = (message) => {
     }
 };
 
-var repeatSong = (message) => {
-
+let repeatSong = (message) => {
+    repeating = !repeating;
+    if (repeating ) {
+        message.channel.send(reply.songRepeating);
+    } else {
+        message.channel.send(reply.songNoRepeating);
+    }
 };
 
-var unknownCommand = (message) => {
+let unknownCommand = (message) => {
     message.channel.send(reply.unknownCmd);
 };
 
-var leaveChannel = (message) => {
+let leaveChannel = (message) => {
     if (userInChannel(message)) {
         playQueue = [];
         dispatcher.destroy();
@@ -110,9 +120,9 @@ var leaveChannel = (message) => {
     }
 };
 
-var createResultsEmbed = (client, message, results, args) => {
+let createResultsEmbed = (client, message, results, args) => {
     // Get all results to field array to use in embed
-    var fields = [];
+    let fields = [];
     results.forEach((element) => {
         var field = {
             name: `${element.index}. ${element.title}`,
@@ -133,18 +143,17 @@ var createResultsEmbed = (client, message, results, args) => {
         }});
 };
 
-var checkInput = (input) => {
-    // Check if input value is between 1-10
-    var re = /^[0-9]*$/;
-    return re.test(input);
+let checkInput = (input) => {
+    // Check if input value is correct
+    return Number.isInteger(input) && input >= 0 && input <= 9;
 };
 
-var userInChannel = (message) => {
+let userInChannel = (message) => {
     // Check that user is in voice channel
-    return (!!message.member.voiceChannel);
+    return !!message.member.voiceChannel;
 };
 
-var destroyClient = (client) => {
+let destroyClient = (client) => {
     client.destroy();
 };
 
