@@ -26,6 +26,8 @@ Built on official [Discord API](https://discordapp.com/developers) using Node.js
     * :heavy_check_mark: Skip 
     * :heavy_check_mark: Repeat
     * :heavy_multiplication_x: Stop
+    * :heavy_multiplication_x: Volume 0-100%
+    * :heavy_multiplication_x: Forward/Rewind x:xx
 * Memes
     * :heavy_multiplication_x: Images 
     * :heavy_multiplication_x: Videos
