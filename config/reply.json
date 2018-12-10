@@ -6,9 +6,13 @@
   "invalidInput": "Invalid input number! :face_palm:",
   "listenOnlyChannel": "I only listen to people who are in voice channel with me! :angry:",
   "leavingChannel": "Leaving channel, bye! :hand_splayed:",
+  "nothingToRepeat": "Nothing to repeat! :thinking:",
+  "nothingPlaying": "Nothing playing right now! :nerd:",
   "nowPlaying": "Now playing: ",
+  "playerPaused": "Player paused! :thumbsdown:",
+  "playerResuming": "Player resuming! :thumbsup:",
   "resultsForKeywords": "Results for keyword(s): ",
   "songRepeating": "Song is now repeating! :repeat:",
-  "songNoRepeating": "Song is no more repeating!",
+  "songNoRepeating": "Song is no more repeating! :no_good:",
   "unknownCmd": "Unknown command, if you want to see available commands type: ?help :grimacing:"
 }

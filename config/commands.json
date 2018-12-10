@@ -1,0 +1,36 @@
+{
+  "commands": [
+    {
+      "name": "Play [keyword(s)]",
+      "value": "Search 10 best matching songs, after that type 1-10 to select"
+    },
+    {
+      "name": "Pause",
+      "value": "Pause the player"
+    },
+    {
+      "name": "Resume",
+      "value": "Resume the player"
+    },
+    {
+      "name": "Playlist",
+      "value": "Show current playlist"
+    },
+    {
+      "name": "Repeat",
+      "value": "Toggle on repeat, type again to to turn-off"
+    },
+    {
+      "name": "Skip",
+      "value": "Skip currently playing song"
+    },
+    {
+      "name": "Leave",
+      "value": "Tell bot to leave the voice channel"
+    },
+    {
+      "name": "Help",
+      "value": "Show all available commands and help"
+    }
+  ]
+}

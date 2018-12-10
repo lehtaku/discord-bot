@@ -1,7 +1,7 @@
-const request = require('request');
 const config = require('../config/config');
+const request = require('request');
 
-var getYtVideos = (keyWord, callback) => {
+let getYtVideos = (keyWord, callback) => {
     request({
         url: `${config.googleBaseURL}part=${config.part}&maxResults=${config.maxResults}&q=${keyWord}&type=${config.type}&key=${process.env.API_KEY}`,
         json: true
@@ -10,11 +10,11 @@ var getYtVideos = (keyWord, callback) => {
             callback('Unable to connect to google servers.');
         }
         else if (response.statusCode === 200) {
-            var results = body.items;
-            var items = [];
+            let results = body.items;
+            let items = [];
 
             results.forEach((element, index) => {
-                var data = {
+                let data = {
                     index: index + 1,
                     videoURL: config.ytVideoURL + element.id.videoId,
                     title: element.snippet.title,

@@ -1,30 +1,27 @@
 const { MessageCollector } = require('discord.js');
-const search = require('./videoSearch');
+const embed = require('./embeds');
+const search = require('./search');
 const reply = require('../config/reply');
+const validate = require('./validations');
 
-const fs = require('fs');
 const ytdl = require('ytdl-core');
 
 let dispatcher;
 let playQueue = [];
+let playerState = false;
 let repeating = false;
 
-
 let selectSong = (client, message, args) => {
-    if (!userInChannel(message)) {
-        message.reply(reply.joinFirst);
-    }
-    else {
         search.getYtVideos(args, (error, results) => {
             if (error) {
                 console.log(error);
             } else {
-                createResultsEmbed(client, message, results, args);
-                const collector = new MessageCollector(message.channel, msg => msg.author.id === message.author.id, {time: 6000});
+                embed.resultsEmbed(client, message, results, args);
+                const collector = new MessageCollector(message.channel, msg => msg.author.id === message.author.id, {time: 5000});
 
                 collector.on('collect', message => {
                     let songNumber = (message.content - 1);
-                    if (!checkInput(songNumber)) {
+                    if (!validate.checkInput(songNumber)) {
                         message.reply(reply.invalidInput);
                     } else {
                         collector.stop();
@@ -41,7 +38,6 @@ let selectSong = (client, message, args) => {
                 });
             }
         });
-    }
 };
 
 let playSong = (message) => {
@@ -59,7 +55,12 @@ let playSong = (message) => {
                 }
                 dispatcher = connection.playStream(stream);
 
+                dispatcher.on('speaking', () => {
+                    playerState = true;
+                });
+
                 dispatcher.on('end', () => {
+                    playerState = false;
                     if (!repeating) {
                         playQueue.shift();
                     }
@@ -73,96 +74,71 @@ let playSong = (message) => {
 };
 
 let pauseSong = (message) => {
-    if (userInChannel(message)) {
+    if (playerState) {
         dispatcher.pause();
+        message.channel.send(reply.playerPaused);
     } else {
-        message.reply(reply.listenOnlyChannel);
+        message.reply(reply.nothingPlaying);
     }
 };
 
 let resumeSong = (message) => {
-    if (userInChannel(message)) {
+    if (playerState) {
         dispatcher.resume();
+        message.channel.send(reply.playerResuming);
     } else {
-        message.reply(reply.listenOnlyChannel);
+        message.reply(reply.nothingPlaying);
     }
+};
+
+let showPlaylist = (message) => {
+    // TO DO
 };
 
 let skipSong = (message) => {
     if (playQueue.length < 1) {
         message.reply(reply.emptyQueue);
     } else {
+        repeating = false;
         dispatcher.end();
     }
 };
 
 let repeatSong = (message) => {
-    repeating = !repeating;
-    if (repeating ) {
-        message.channel.send(reply.songRepeating);
+    if (playerState) {
+        repeating = !repeating;
+        if (repeating ) {
+            message.channel.send(reply.songRepeating);
+        } else {
+            message.channel.send(reply.songNoRepeating);
+        }
     } else {
-        message.channel.send(reply.songNoRepeating);
+        message.reply(reply.nothingToRepeat);
     }
 };
 
 let unknownCommand = (message) => {
-    message.channel.send(reply.unknownCmd);
+    message.reply(reply.unknownCmd);
 };
 
 let leaveChannel = (message) => {
-    if (userInChannel(message)) {
+    // FIX: Do only once
         playQueue = [];
         dispatcher.destroy();
         message.channel.send(reply.leavingChannel);
         message.member.voiceChannel.leave();
-    } else {
-        message.reply(reply.listenOnlyChannel);
-    }
 };
 
-let createResultsEmbed = (client, message, results, args) => {
-    // Get all results to field array to use in embed
-    let fields = [];
-    results.forEach((element) => {
-        var field = {
-            name: `${element.index}. ${element.title}`,
-            value: `by ${element.uploader}`
-        };
-        fields.push(field);
-    });
-
-    // Create and send results embed
-    message.channel.send({embed: {
-            color: 6750054,
-            author: {
-                name: client.user.username,
-                icon_url: client.user.avatarURL
-            },
-            description: reply.resultsForKeywords + args,
-            fields: fields
-        }});
+let showCommands = (message) => {
+    embed.controlsEmbed(message);
 };
-
-let checkInput = (input) => {
-    // Check if input value is correct
-    return Number.isInteger(input) && input >= 0 && input <= 9;
-};
-
-let userInChannel = (message) => {
-    // Check that user is in voice channel
-    return !!message.member.voiceChannel;
-};
-
-let destroyClient = (client) => {
-    client.destroy();
-};
-
 
 module.exports.selectSong = selectSong;
 module.exports.pauseSong = pauseSong;
+module.exports.showPlaylist = showPlaylist;
 module.exports.resumeSong = resumeSong;
 module.exports.skipSong = skipSong;
 module.exports.repeatSong = repeatSong;
 module.exports.unknownCommand = unknownCommand;
 module.exports.leaveChannel = leaveChannel;
-module.exports.destroyClient = destroyClient;
+module.exports.showCommands = showCommands;
