@@ -1,4 +1,14 @@
 {
+  "successColor": "6750054",
+  "failColor": "16191761",
+  "descriptions":
+    {
+      "availableCommands": "List of available commands (not case-sensitive), type:  ```?command```",
+      "currentPlaylist": "Here's your current playlist",
+      "resultsForKeywords": "Results for keyword(s): ",
+      "requestedBy": "Requested by",
+      "uploadedBy": "Uploaded by"
+    },
   "commands": [
     {
       "name": "Play [keyword(s)]",

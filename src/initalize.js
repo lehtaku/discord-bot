@@ -28,7 +28,7 @@ let initializeBot = () => {
         if (validate.userInChannel(message)) {
             switch (command) {
                 case 'play':
-                    commands.selectSong(client, message, args);
+                    commands.selectSong(message, args);
                     break;
                 case 'pause':
                     commands.pauseSong(message);
@@ -45,6 +45,9 @@ let initializeBot = () => {
                 case 'skip':
                     commands.skipSong(message);
                     break;
+                case 'join':
+                    commands.joinChannel(message);
+                    break;
                 case 'leave':
                     commands.leaveChannel(message);
                     break;
@@ -55,7 +58,7 @@ let initializeBot = () => {
                     commands.unknownCommand(message);
             }
         } else {
-            message.reply(reply.listenOnlyChannel);
+            message.reply(reply.joinFirst);
         }
 
     });

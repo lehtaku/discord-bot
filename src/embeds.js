@@ -1,36 +1,64 @@
-const command = require('../config/commands');
-const reply = require('../config/reply');
+const embed = require('../config/embeds');
 
-let createResultsEmbed = (client, message, results, args) => {
+let resultsEmbed = (message, results, args) => {
     // Get all results to field array to use in embed
     let fields = [];
     results.forEach((element) => {
         let field = {
             name: `${element.index}. ${element.title}`,
-            value: `by ${element.uploader}`
+            value: embed.descriptions.uploadedBy + element.uploader
         };
         fields.push(field);
     });
-
-    // Create and send results embed
-    message.channel.send({embed: {
-            color: 6750054,
-            author: {
-                name: client.user.username,
-                icon_url: client.user.avatarURL
-            },
-            description: reply.resultsForKeywords + args,
-            fields: fields
-        }});
+    successEmbed(message, embed.descriptions.resultsForKeywords + args, fields);
 };
 
-let createControlsEmbed = (message) => {
-    message.channel.send({embed: {
-            color: 6750054,
-            description: 'List of available commands (not case-sensitive), type:  ```?command```',
-            fields: command.commands
-        }});
+let playlistEmbed = (message, playlist) => {
+    let fields = [];
+    playlist.forEach((element) => {
+        let field = {
+            name: element.title,
+            value: embed.descriptions.requestedBy + element.requestedBy
+        };
+        fields.push(field);
+    });
+    fields.shift();
+    successEmbed(message, embed.descriptions.currentPlaylist, fields);
 };
 
-module.exports.resultsEmbed = createResultsEmbed;
-module.exports.controlsEmbed = createControlsEmbed;
+let controlsEmbed = (message) => {
+    successEmbed(message, embed.descriptions.availableCommands, embed.commands);
+};
+
+let successEmbed = (message, desc, fields) => {
+    message.channel.send({embed: {
+            color: embed.successColor,
+            description: desc,
+            fields: fields,
+            footer: {
+                text: `${embed.descriptions.requestedBy} ${message.author.username}`
+            }
+        }}).catch(error => {
+            console.log(error);
+    });
+};
+
+let failEmbed = (message, desc, fields) => {
+    message.channel.send({embed: {
+            color: embed.failColor,
+            description: desc,
+            fields: fields,
+            footer: {
+                text: `${embed.descriptions.requestedBy} ${message.author.username}`
+            }
+        }}).catch(error => {
+            console.log(error);
+    });
+
+};
+
+module.exports.resultsEmbed = resultsEmbed;
+module.exports.playlistEmbed = playlistEmbed;
+module.exports.controlsEmbed = controlsEmbed;
+module.exports.successEmbed = successEmbed;
+module.exports.failEmbed = failEmbed;
