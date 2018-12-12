@@ -28,11 +28,11 @@ Built on official [Discord API](https://discordapp.com/developers) using Node.js
     * :heavy_multiplication_x: Stop
     * :heavy_multiplication_x: Volume 0-100%
     * :heavy_multiplication_x: Forward/Rewind x:xx
-* :trollface: Memes
+* Memes
     * :heavy_multiplication_x: Images 
     * :heavy_multiplication_x: Videos
     * :heavy_multiplication_x: Sounds
-* :trollface: Messages
+* Messages
     * :heavy_multiplication_x: Funny replies (or something else cool)
 * Utilies
     * :heavy_check_mark: Join to voice channel
@@ -40,6 +40,7 @@ Built on official [Discord API](https://discordapp.com/developers) using Node.js
     * :heavy_check_mark: Help and commands panel
 * Other
     * :heavy_multiplication_x: Disconnect from channel if being too long alone
+    
 ### Needs to be improved
 * Error handling
 * General stability 
