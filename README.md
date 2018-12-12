@@ -28,14 +28,16 @@ Built on official [Discord API](https://discordapp.com/developers) using Node.js
     * :heavy_multiplication_x: Stop
     * :heavy_multiplication_x: Volume 0-100%
     * :heavy_multiplication_x: Forward/Rewind x:xx
-* Memes
+* :trollface: Memes
     * :heavy_multiplication_x: Images 
     * :heavy_multiplication_x: Videos
     * :heavy_multiplication_x: Sounds
-* Messages
+* :trollface: Messages
     * :heavy_multiplication_x: Funny replies (or something else cool)
 * Utilies
-    * :heavy_multiplication_x: Help and commands panel
+    * :heavy_check_mark: Join to voice channel
+    * :heavy_check_mark: Leave voice channel
+    * :heavy_check_mark: Help and commands panel
 * Other
     * :heavy_multiplication_x: Disconnect from channel if being too long alone
 ### Needs to be improved
