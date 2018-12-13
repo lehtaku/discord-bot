@@ -15,7 +15,7 @@
     "dotenv": "^6.1.0",
     "ffmpeg": "0.0.4",
     "ffmpeg-binaries": "^4.0.0",
-    "forever": "^0.15.3",
+    "node-datetime": "^2.1.2",
     "node-opus": "^0.3.1",
     "request": "^2.88.0",
     "winston": "^3.1.0",

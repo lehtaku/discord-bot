@@ -3,13 +3,20 @@ const embed = require('./embeds');
 const search = require('./search');
 const reply = require('../config/reply');
 const validate = require('./validations');
-
 const ytdl = require('ytdl-core');
 
 let dispatcher;
 let playQueue = [];
 let playerState = false;
 let repeating = false;
+
+/*
+* To do:
+* Remove message after successful action or after time, command (10s)
+*
+* To fix:
+*
+* */
 
 let selectSong = (message, args) => {
         search.getYtVideos(args, (error, results) => {
@@ -27,7 +34,7 @@ let selectSong = (message, args) => {
                     } else {
                         collector.stop();
                         playQueue.push({
-                            requestedBy: message.author.username,
+                            queuedBy: message.author.username,
                             title: results[songNumber].title,
                             videoURL: results[songNumber].videoURL
                         });

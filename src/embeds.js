@@ -6,7 +6,7 @@ let resultsEmbed = (message, results, args) => {
     results.forEach((element) => {
         let field = {
             name: `${element.index}. ${element.title}`,
-            value: embed.descriptions.uploadedBy + element.uploader
+            value: embed.descriptions.uploadedBy + ' ' + element.uploader
         };
         fields.push(field);
     });
@@ -18,7 +18,7 @@ let playlistEmbed = (message, playlist) => {
     playlist.forEach((element) => {
         let field = {
             name: element.title,
-            value: embed.descriptions.requestedBy + element.requestedBy
+            value: embed.descriptions.queuedBy + element.queuedBy
         };
         fields.push(field);
     });
@@ -36,7 +36,7 @@ let successEmbed = (message, desc, fields) => {
             description: desc,
             fields: fields,
             footer: {
-                text: `${embed.descriptions.requestedBy} ${message.author.username}`
+                text: embed.descriptions.requestedBy + ' ' + message.author.username
             }
         }}).catch(error => {
             console.log(error);

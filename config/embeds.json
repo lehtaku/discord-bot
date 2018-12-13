@@ -7,6 +7,7 @@
       "currentPlaylist": "Here's your current playlist",
       "resultsForKeywords": "Results for keyword(s): ",
       "requestedBy": "Requested by",
+      "queuedBy": "Queued by",
       "uploadedBy": "Uploaded by"
     },
   "commands": [

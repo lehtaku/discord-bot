@@ -1,6 +1,7 @@
 const { Client } = require('discord.js');
 const config = require('../config/config');
 const commands = require('./commands');
+const dateTime = require('node-datetime');
 const reply = require('../config/reply');
 const validate = require('./validations');
 
@@ -17,7 +18,10 @@ let initializeBot = () => {
 
     client.on('error', (error) => console.log(error));
     client.on('warn', (error) => console.log(error));
-    client.on('debug', (error) => console.log(error));
+    client.on('debug', (error) => {
+        let dt = dateTime.create().format('H:M:S d-m-Y');
+        console.log(error + ' at ' + dt);
+    });
 
     client.on('message', message => {
         if (!message.content.startsWith(config.prefix) || message.author.bot || (!message.guild)) return;
@@ -60,7 +64,6 @@ let initializeBot = () => {
         } else {
             message.reply(reply.joinFirst);
         }
-
     });
 };
 
