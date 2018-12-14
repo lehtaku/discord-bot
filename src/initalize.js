@@ -49,6 +49,12 @@ let initializeBot = () => {
                 case 'skip':
                     commands.skipSong(message);
                     break;
+                case 'volume':
+                    commands.setVolume(message, args);
+                    break;
+                case 'stop':
+                    commands.stopPlaying(message);
+                    break;
                 case 'join':
                     commands.joinChannel(message);
                     break;

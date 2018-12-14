@@ -18,7 +18,7 @@ let playlistEmbed = (message, playlist) => {
     playlist.forEach((element) => {
         let field = {
             name: element.title,
-            value: embed.descriptions.queuedBy + element.queuedBy
+            value: embed.descriptions.queuedBy + ' ' + element.queuedBy
         };
         fields.push(field);
     });

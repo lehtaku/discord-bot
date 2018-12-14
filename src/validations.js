@@ -13,6 +13,10 @@ let validateCommand = (args) => {
         .toLowerCase();
 };
 
+let checkVolume = (input) => {
+    return Number.isInteger(input) && input >= 0 || input <= 100;
+};
+
 let checkInput = (input) => {
     // Check if input value is correct
     return Number.isInteger(input) && input >= 0 && input <= 9;
@@ -25,5 +29,6 @@ let userInChannel = (message) => {
 
 module.exports.validateArgs = validateArgs;
 module.exports.validateCommand = validateCommand;
+module.exports.checkVolume = checkVolume;
 module.exports.checkInput = checkInput;
 module.exports.userInChannel = userInChannel;

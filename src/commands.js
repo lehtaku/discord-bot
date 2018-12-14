@@ -9,14 +9,11 @@ let dispatcher;
 let playQueue = [];
 let playerState = false;
 let repeating = false;
+let volume = 0.05; // Default volume 5%
 
 /*
-* To do:
-* Remove message after successful action or after time, command (10s)
-*
-* To fix:
-*
-* */
+* Fix: Remove message after command
+ */
 
 let selectSong = (message, args) => {
         search.getYtVideos(args, (error, results) => {
@@ -65,6 +62,7 @@ let playSong = (message) => {
                 dispatcher = connection.playStream(stream);
 
                 dispatcher.on('speaking', () => {
+                    dispatcher.setVolume(volume);
                     playerState = true;
                 });
 
@@ -118,6 +116,28 @@ let skipSong = (message) => {
     }
 };
 
+let setVolume = (message, args) => {
+    if (playerState) {
+        if (validate.checkVolume(args[0])) {
+            let volume = args[0] / 100;
+            dispatcher.setVolume(volume);
+        } else {
+            embed.failEmbed(message, reply.invalidVolume);
+        }
+    } else {
+        embed.failEmbed(message, reply.nothingPlaying);
+    }
+};
+
+let stopPlaying = (message) => {
+    if (playerState) {
+        playQueue = [];
+        dispatcher.end();
+    } else {
+        embed.failEmbed(message, reply.nothingPlaying);
+    }
+};
+
 let repeatSong = (message) => {
     if (playerState) {
         repeating = !repeating;
@@ -156,6 +176,8 @@ module.exports.pauseSong = pauseSong;
 module.exports.showPlaylist = showPlaylist;
 module.exports.resumeSong = resumeSong;
 module.exports.skipSong = skipSong;
+module.exports.setVolume = setVolume;
+module.exports.stopPlaying = stopPlaying;
 module.exports.repeatSong = repeatSong;
 module.exports.unknownCommand = unknownCommand;
 module.exports.joinChannel = joinChannel;
