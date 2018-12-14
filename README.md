@@ -23,10 +23,10 @@ Built on official [Discord API](https://discordapp.com/developers) using Node.js
     * :heavy_check_mark: Pause
     * :heavy_check_mark: Resume 
     * :heavy_check_mark: Queue
-    * :heavy_check_mark: Skip 
+    * :heavy_check_mark: Skip
+    * :heavy_check_mark: Volume
     * :heavy_check_mark: Repeat
-    * :heavy_multiplication_x: Stop
-    * :heavy_multiplication_x: Volume 0-100%
+    * :heavy_check_mark: Stop
     * :heavy_multiplication_x: Forward/Rewind x:xx
 * Memes
     * :heavy_multiplication_x: Images 
