@@ -3,7 +3,7 @@ const request = require('request');
 
 let getYtVideos = (keyWord, callback) => {
     request({
-        url: `${config.googleBaseURL}part=${config.part}&maxResults=${config.maxResults}&q=${keyWord}&type=${config.type}&key=${process.env.API_KEY}&relevanceLanguage=${config.lang}&h1=${config.lang}`,
+        url: `${config.googleBaseURL}part=${config.part}&maxResults=${config.maxResults}&q=${keyWord}&type=${config.type}&regionCode=${config.lang}&key=${process.env.API_KEY}`,
         json: true
     }, (error, response, body) => {
         if (error) {
@@ -12,6 +12,7 @@ let getYtVideos = (keyWord, callback) => {
         else if (response.statusCode === 200) {
             let results = body.items;
             let items = [];
+            console.log(body);
 
             results.forEach((element, index) => {
                 let data = {

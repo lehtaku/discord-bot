@@ -1,6 +1,6 @@
 {
   "googleBaseURL": "https://www.googleapis.com/youtube/v3/search?",
-  "lang": "fi",
+  "lang": "FI",
   "maxResults": 10,
   "part": "snippet",
   "prefix": "?",
