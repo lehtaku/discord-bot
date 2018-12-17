@@ -25,6 +25,10 @@ let selectSong = (message, args) => {
                 const collector = new MessageCollector(message.channel, msg => msg.author.id === message.author.id, {time: 5000});
 
                 collector.on('collect', message => {
+                    if (message.content.startsWith('?')) {
+                        collector.stop();
+                        return;
+                    }
                     let songNumber = (message.content - 1);
                     if (!validate.checkInput(songNumber)) {
                         embed.failEmbed(message, reply.invalidInput);
