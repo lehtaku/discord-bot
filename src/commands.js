@@ -22,7 +22,7 @@ let selectSong = (message, args) => {
             } else {
                 embed.resultsEmbed(message, results, args);
 
-                const collector = new MessageCollector(message.channel, msg => msg.author.id === message.author.id, {time: 5000});
+                const collector = new MessageCollector(message.channel, msg => msg.author.id === message.author.id, {time: 20000});
 
                 collector.on('collect', message => {
                     if (message.content.startsWith('?')) {
