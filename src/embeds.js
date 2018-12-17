@@ -57,8 +57,16 @@ let failEmbed = (message, desc, fields) => {
 
 };
 
+module.exports = {
+    resultsEmbed,
+    playlistEmbed,
+    controlsEmbed,
+    successEmbed,
+    failEmbed
+};
+/*
 module.exports.resultsEmbed = resultsEmbed;
 module.exports.playlistEmbed = playlistEmbed;
 module.exports.controlsEmbed = controlsEmbed;
 module.exports.successEmbed = successEmbed;
-module.exports.failEmbed = failEmbed;
+module.exports.failEmbed = failEmbed;*/

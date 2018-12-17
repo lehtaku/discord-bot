@@ -27,8 +27,17 @@ let userInChannel = (message) => {
     return !!message.member.voiceChannel;
 };
 
+module.exports = {
+    validateArgs,
+    validateCommand,
+    checkVolume,
+    checkInput,
+    userInChannel
+};
+
+/*
 module.exports.validateArgs = validateArgs;
 module.exports.validateCommand = validateCommand;
 module.exports.checkVolume = checkVolume;
 module.exports.checkInput = checkInput;
-module.exports.userInChannel = userInChannel;
+module.exports.userInChannel = userInChannel;*/

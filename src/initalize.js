@@ -73,5 +73,7 @@ let initializeBot = () => {
     });
 };
 
-module.exports.initializeBot = initializeBot;
+module.exports = {
+    initializeBot
+};
 

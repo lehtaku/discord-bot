@@ -9,7 +9,7 @@ let dispatcher;
 let playQueue = [];
 let playerState = false;
 let repeating = false;
-let volume = 0.05; // Default volume 5%
+let volume;
 
 /*
 * Fix: Remove message after command
@@ -20,16 +20,17 @@ let selectSong = (message, args) => {
             if (error) {
                 console.log(error);
             } else {
-                embed.resultsEmbed(message, results, args);
-
+                let msgId = embed.resultsEmbed(message, results, args);
                 const collector = new MessageCollector(message.channel, msg => msg.author.id === message.author.id, {time: 20000});
 
-                collector.on('collect', message => {
-                    if (message.content.startsWith('?')) {
+                collector.on('collect', input => {
+                    if (input.content.startsWith('?')) {
+                        message.delete()
+                            .catch(error => console.log(error));
                         collector.stop();
                         return;
                     }
-                    let songNumber = (message.content - 1);
+                    let songNumber = (input.content - 1);
                     if (!validate.checkInput(songNumber)) {
                         embed.failEmbed(message, reply.invalidInput);
                     } else {
@@ -66,7 +67,7 @@ let playSong = (message) => {
                 dispatcher = connection.playStream(stream);
 
                 dispatcher.on('speaking', () => {
-                    dispatcher.setVolume(volume);
+                    dispatcher.setVolume(0.05);
                     playerState = true;
                 });
 
@@ -175,6 +176,22 @@ let showCommands = (message) => {
     embed.controlsEmbed(message);
 };
 
+module.exports = {
+    selectSong,
+    pauseSong,
+    showPlaylist,
+    resumeSong,
+    skipSong,
+    setVolume,
+    stopPlaying,
+    repeatSong,
+    unknownCommand,
+    joinChannel,
+    leaveChannel,
+    showCommands
+};
+
+/*
 module.exports.selectSong = selectSong;
 module.exports.pauseSong = pauseSong;
 module.exports.showPlaylist = showPlaylist;
@@ -186,4 +203,4 @@ module.exports.repeatSong = repeatSong;
 module.exports.unknownCommand = unknownCommand;
 module.exports.joinChannel = joinChannel;
 module.exports.leaveChannel = leaveChannel;
-module.exports.showCommands = showCommands;
+module.exports.showCommands = showCommands;*/

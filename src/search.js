@@ -28,4 +28,6 @@ let getYtVideos = (keyWord, callback) => {
     });
 };
 
-module.exports.getYtVideos = getYtVideos;
+module.exports = {
+    getYtVideos
+};
