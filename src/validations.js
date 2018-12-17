@@ -34,10 +34,3 @@ module.exports = {
     checkInput,
     userInChannel
 };
-
-/*
-module.exports.validateArgs = validateArgs;
-module.exports.validateCommand = validateCommand;
-module.exports.checkVolume = checkVolume;
-module.exports.checkInput = checkInput;
-module.exports.userInChannel = userInChannel;*/

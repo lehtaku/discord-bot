@@ -12,43 +12,46 @@ let repeating = false;
 let volume;
 
 /*
-* Fix: Remove message after command
- */
+* Do: Search withing url
+*/
 
 let selectSong = (message, args) => {
-        search.getYtVideos(args, (error, results) => {
+    search.getYtVideos(args, (error, results) => {
             if (error) {
                 console.log(error);
             } else {
-                let msgId = embed.resultsEmbed(message, results, args);
-                const collector = new MessageCollector(message.channel, msg => msg.author.id === message.author.id, {time: 20000});
-
-                collector.on('collect', input => {
-                    if (input.content.startsWith('?')) {
-                        message.delete()
-                            .catch(error => console.log(error));
-                        collector.stop();
-                        return;
-                    }
-                    let songNumber = (input.content - 1);
-                    if (!validate.checkInput(songNumber)) {
-                        embed.failEmbed(message, reply.invalidInput);
-                    } else {
-                        collector.stop();
-                        playQueue.push({
-                            queuedBy: message.author.username,
-                            title: results[songNumber].title,
-                            videoURL: results[songNumber].videoURL
-                        });
-                        if (playQueue.length > 1) {
-                            embed.successEmbed(message, results[songNumber].title + reply.addedToQueue);
-                        } else {
-                            playSong(message);
-                        }
-                    }
-                });
+                embed.resultsEmbed(message, results, args);
+                songSelector(message, results);
             }
         });
+};
+
+let songSelector = (message, results) => {
+    const collector = new MessageCollector(message.channel, msg => msg.author.id === message.author.id, {time: 20000});
+
+    collector.on('collect', input => {
+        if (input.content.startsWith('?')) {
+            collector.stop();
+            return;
+        }
+        let songNumber = (input.content - 1);
+        if (!validate.checkInput(songNumber)) {
+            embed.failEmbed(message, reply.invalidInput);
+        } else {
+            collector.stop();
+            playQueue.push({
+                queuedBy: message.author.username,
+                title: results[songNumber].title,
+                videoURL: results[songNumber].videoURL
+            });
+            if (playQueue.length > 1) {
+                embed.successEmbed(message, results[songNumber].title + reply.addedToQueue);
+            } else {
+                playSong(message);
+                volume = 0.10;
+            }
+        }
+    });
 };
 
 let playSong = (message) => {
@@ -60,14 +63,15 @@ let playSong = (message) => {
                 let stream = ytdl(playQueue[0].videoURL, {
                     quality: 'highestaudio',
                     filter: 'audioonly',
+                    lang: 'fi'
                 });
                 if (!repeating) {
                     embed.successEmbed(message, reply.nowPlaying + playQueue[0].title);
                 }
                 dispatcher = connection.playStream(stream);
+                dispatcher.setVolume(volume);
 
                 dispatcher.on('speaking', () => {
-                    dispatcher.setVolume(0.05);
                     playerState = true;
                 });
 
@@ -121,7 +125,7 @@ let skipSong = (message) => {
     }
 };
 
-let setVolume = (message, args) => {
+let setVolume = (message, args, value) => {
     if (playerState) {
         if (validate.checkVolume(args[0])) {
             let volume = args[0] / 100;
@@ -190,17 +194,3 @@ module.exports = {
     leaveChannel,
     showCommands
 };
-
-/*
-module.exports.selectSong = selectSong;
-module.exports.pauseSong = pauseSong;
-module.exports.showPlaylist = showPlaylist;
-module.exports.resumeSong = resumeSong;
-module.exports.skipSong = skipSong;
-module.exports.setVolume = setVolume;
-module.exports.stopPlaying = stopPlaying;
-module.exports.repeatSong = repeatSong;
-module.exports.unknownCommand = unknownCommand;
-module.exports.joinChannel = joinChannel;
-module.exports.leaveChannel = leaveChannel;
-module.exports.showCommands = showCommands;*/

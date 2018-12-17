@@ -1,8 +1,9 @@
 {
   "googleBaseURL": "https://www.googleapis.com/youtube/v3/search?",
-  "ytVideoURL": "https://www.youtube.com/watch?v=",
-  "part": "snippet",
+  "lang": "fi",
   "maxResults": 10,
+  "part": "snippet",
+  "prefix": "?",
   "type": "video",
-  "prefix": "?"
+  "ytVideoURL": "https://www.youtube.com/watch?v="
 }

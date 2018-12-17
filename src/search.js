@@ -3,7 +3,7 @@ const request = require('request');
 
 let getYtVideos = (keyWord, callback) => {
     request({
-        url: `${config.googleBaseURL}part=${config.part}&maxResults=${config.maxResults}&q=${keyWord}&type=${config.type}&key=${process.env.API_KEY}`,
+        url: `${config.googleBaseURL}part=${config.part}&maxResults=${config.maxResults}&q=${keyWord}&type=${config.type}&relevanceLanguage=${config.lang}&key=${process.env.API_KEY}`,
         json: true
     }, (error, response, body) => {
         if (error) {
@@ -22,7 +22,6 @@ let getYtVideos = (keyWord, callback) => {
                 };
                 items.push(data);
             });
-
             callback(undefined, items);
         }
     });

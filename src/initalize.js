@@ -8,7 +8,8 @@ const validate = require('./validations');
 let initializeBot = () => {
     // Create and login client
     const client = new Client();
-    client.login(process.env.APP_TOKEN);
+    client.login(process.env.APP_TOKEN)
+        .catch(error => console.log(error));
 
     client.on('ready', () => {
         console.log('Connected');
