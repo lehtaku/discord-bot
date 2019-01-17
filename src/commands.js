@@ -48,7 +48,7 @@ let songSelector = (message, results) => {
                 embed.successEmbed(message, results[songNumber].title + reply.addedToQueue);
             } else {
                 playSong(message);
-                volume = 0.10;
+                volume = 0.40;
             }
         }
     });
