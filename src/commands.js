@@ -48,7 +48,7 @@ let songSelector = (message, results) => {
                 embed.successEmbed(message, results[songNumber].title + reply.addedToQueue);
             } else {
                 playSong(message);
-                volume = 0.40;
+                volume = 0.30;
             }
         }
     });
@@ -73,10 +73,12 @@ let playSong = (message) => {
 
                 dispatcher.on('speaking', () => {
                     playerState = true;
+                    message.channel.send('pls fart');
                 });
 
                 dispatcher.on('end', () => {
                     playerState = false;
+                    message.channel.send('pls fart');
                     if (!repeating) {
                         playQueue.shift();
                     }
