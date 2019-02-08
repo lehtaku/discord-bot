@@ -73,12 +73,10 @@ let playSong = (message) => {
 
                 dispatcher.on('speaking', () => {
                     playerState = true;
-                    message.channel.send('pls fart');
                 });
 
                 dispatcher.on('end', () => {
                     playerState = false;
-                    message.channel.send('pls fart');
                     if (!repeating) {
                         playQueue.shift();
                     }
